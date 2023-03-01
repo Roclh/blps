@@ -3,7 +3,6 @@ package com.roclh.blps.database;
 
 import com.roclh.blps.entities.Category;
 import com.roclh.blps.entities.StudopediaArticle;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
