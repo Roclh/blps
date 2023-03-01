@@ -32,7 +32,8 @@ public class StudopediaController {
     }
 
     @GetMapping("/article")
-    @ApiOperation(value = "Get article by name", notes = "Throws exception if Article doesn't exist", response = StudopediaArticle.class)
+    @ApiOperation(value = "Get article by name", notes = "Throws exception if Article doesn't exist")
+    @ApiResponse(code = HttpServletResponse.SC_OK, message = "success!", response = StudopediaArticle.class)
     public StudopediaArticle getArticle(@RequestParam(name="name") String articleName) throws ArticleNotFoundException {
         log.info("Received request to get article with name {}", articleName);
             return service.getArticleByName(articleName);
@@ -40,6 +41,7 @@ public class StudopediaController {
 
     @GetMapping("/all-articles")
     @ApiOperation(value = "Get all the articles page by page")
+    @ApiResponse(code = HttpServletResponse.SC_OK, message = "success!")
     public List<StudopediaArticle> getAllArticle(@RequestParam(name="page") int page){
         log.info("Received request to get all the articles");
         return service.getArticlesAsList(page);
@@ -47,6 +49,7 @@ public class StudopediaController {
 
     @PostMapping("/article/search")
     @ApiOperation(value="Search for an article by it's name", notes = "Can be partially correct")
+    @ApiResponse(code=HttpServletResponse.SC_OK, message = "success!")
     public List<StudopediaArticle> searchArticle(@RequestParam(name="search") String search, @RequestParam(name="page") int page) {
         log.info("Received a search for " + search + " article request");
         return service.getArticlesAsPage(search,page);
@@ -54,19 +57,23 @@ public class StudopediaController {
 
     @PostMapping("/article/suggest")
     @ApiOperation(value = "Suggests articles while user is typing")
+    @ApiResponse(code=HttpServletResponse.SC_OK, message = "success!")
     public List<StudopediaArticle> suggestArticle(@RequestParam(name="search") String search){
         log.info("Suggestions!!!");
         return service.getArticleSuggestionBySubStr(search);
     }
 
     @PostMapping("/article/random")
-    @ApiOperation(value = "")
+    @ApiOperation(value = "Gets random article.")
+    @ApiResponse(code=HttpServletResponse.SC_OK, message = "success!", response = StudopediaArticle.class)
     public StudopediaArticle randomArticle() throws ArticleNotFoundException {
         log.info("Received a request for random article");
         return service.getRandomArticle();
     }
 
     @PostMapping("/article/category")
+    @ApiOperation(value = "Filter articles by Category")
+    @ApiResponse(code=HttpServletResponse.SC_OK, message = "success!", response = StudopediaArticle.class)
     public List<StudopediaArticle> getArticlesByCategory(
             @RequestParam(name = "category") String categoryName, @RequestParam(name = "page") int page) throws ArticleNotFoundException {
         log.info("Received a request for articles in category: " + categoryName);
