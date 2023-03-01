@@ -5,6 +5,7 @@ import com.roclh.blps.entities.StudopediaArticle;
 import com.roclh.blps.service.StudopediaService;
 import com.roclh.blps.utils.HttpResponseErrorMessages;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class StudopediaController {
 
     @Autowired
     public StudopediaController(StudopediaService service){
-        log.info("Initializing Studopedia Controller");
+        log.info("Initializing Studopedia Co    ntroller");
         this.service = service;
     }
 
