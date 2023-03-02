@@ -1,0 +1,6 @@
+- add size for paging
+- validations query params
+- methods
+- endpoint for adding 
+- https://www.baeldung.com/spring-rest-openapi-documentation
+- ControllerAdvice
