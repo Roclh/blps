@@ -29,13 +29,15 @@ public class StudopediaService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<StudopediaArticle> getArticlesAsList(int page){
-        Pageable pageWithFiveElements = PageRequest.of(page, MAX_ARTICLE);
+    public List<StudopediaArticle> getArticlesAsList(int page, Integer paging_size){
+        if (paging_size == null) paging_size = MAX_ARTICLE;
+        Pageable pageWithFiveElements = PageRequest.of(page, paging_size);
         return articleRepository.findByNameContainsIgnoreCase("", pageWithFiveElements);
     }
 
-    public List<StudopediaArticle> getArticlesAsPage(String search, int page){
-        Pageable pageWithFiveElements = PageRequest.of(page, MAX_ARTICLE);
+    public List<StudopediaArticle> getArticlesAsPage(String search, int page, Integer paging_size){
+        if (paging_size == null) paging_size = MAX_ARTICLE;
+        Pageable pageWithFiveElements = PageRequest.of(page, paging_size);
         return articleRepository.findByNameContainsIgnoreCase(search, pageWithFiveElements);
     }
 
@@ -56,8 +58,9 @@ public class StudopediaService {
         return articleRepository.findByNameContainsIgnoreCase(subString, pageOneWithFiveElements);
     }
 
-    public List<StudopediaArticle> getArticleByCategory(String category, int page) throws ArticleNotFoundException {
-        Pageable pageWithFiveElements = PageRequest.of(page, MAX_ARTICLE);
+    public List<StudopediaArticle> getArticleByCategory(String category, int page, Integer paging_size) throws ArticleNotFoundException {
+        if (paging_size == null) paging_size = MAX_ARTICLE;
+        Pageable pageWithFiveElements = PageRequest.of(page, paging_size);
         Optional<Category> categoryOptional = categoryRepository.findByNameLikeIgnoreCase(category);
         if (categoryOptional.isEmpty()) throw new ArticleNotFoundException();
         return articleRepository.findByCategoryEquals(categoryOptional.get(), pageWithFiveElements);

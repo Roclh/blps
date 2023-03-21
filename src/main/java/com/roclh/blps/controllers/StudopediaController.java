@@ -33,15 +33,15 @@ public class StudopediaController {
     }
 
     @GetMapping("/all-articles")
-    public List<StudopediaArticle> getAllArticle(@RequestParam(name="page") int page){
+    public List<StudopediaArticle> getAllArticle(@RequestParam(name="page") int page, @RequestParam(name="paging_size", required = false) Integer paging_size){
         log.info("Received request to get all the articles");
-        return service.getArticlesAsList(page);
+        return service.getArticlesAsList(page, paging_size);
     }
 
     @PostMapping("/article/search")
-    public List<StudopediaArticle> searchArticle(@RequestParam(name="search") String search, @RequestParam(name="page") int page) {
+    public List<StudopediaArticle> searchArticle(@RequestParam(name="search") String search, @RequestParam(name="page") int page, @RequestParam(name="paging_size", required = false) Integer paging_size) {
         log.info("Received a search for " + search + " article request");
-        return service.getArticlesAsPage(search,page);
+        return service.getArticlesAsPage(search,page, paging_size);
     }
 
     @PostMapping("/article/suggest")
@@ -58,9 +58,9 @@ public class StudopediaController {
 
     @PostMapping("/article/category")
     public List<StudopediaArticle> getArticlesByCategory(
-            @RequestParam(name = "category") String categoryName, @RequestParam(name = "page") int page) throws ArticleNotFoundException {
+            @RequestParam(name = "category") String categoryName, @RequestParam(name = "page") int page, @RequestParam(name = "paging_size", required = false) Integer paging_size) throws ArticleNotFoundException {
         log.info("Received a request for articles in category: " + categoryName);
-        return service.getArticleByCategory(categoryName, page);
+        return service.getArticleByCategory(categoryName, page, paging_size);
     }
 }
 
