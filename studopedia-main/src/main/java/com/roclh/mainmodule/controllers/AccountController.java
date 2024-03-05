@@ -1,10 +1,10 @@
 package com.roclh.mainmodule.controllers;
 
+import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.exceptions.AccountNotFountException;
 import com.roclh.mainmodule.messaging.AuthenticationResponse;
 import com.roclh.mainmodule.messaging.LoginRequest;
 import com.roclh.mainmodule.messaging.RegisterRequest;
-import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -27,9 +27,9 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/accounts")
-    public List<Account> getAllAccounts() {
+    public ResponseEntity<List<Account>> getAllAccounts() {
         log.info("Got request to list all accounts");
-        return accountService.findAll();
+        return ResponseEntity.ok(accountService.findAll());
     }
 
     @PostMapping("/register")
