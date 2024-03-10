@@ -1,4 +1,4 @@
-package com.roclh.mainmodule.exceptions;
+package org.roclh.common.exceptions;
 
 public class ArticleNotFoundException extends Exception{
 }

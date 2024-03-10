@@ -1,31 +1,36 @@
 package com.roclh.mainmodule.controllers;
 
-import com.roclh.mainmodule.exceptions.ArticleExistsException;
-import com.roclh.mainmodule.exceptions.ArticleNotFoundException;
-import com.roclh.mainmodule.exceptions.DataValidationException;
 import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.entities.StudopediaArticle;
+import org.roclh.common.exceptions.ArticleExistsException;
+import org.roclh.common.exceptions.ArticleNotFoundException;
+import org.roclh.common.exceptions.DataValidationException;
 import com.roclh.mainmodule.services.StudopediaService;
 import com.roclh.mainmodule.utils.ValidationUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.roclh.common.constants.Constants.EMPTY_MESSAGE;
+import static org.roclh.common.constants.Constants.SPECIAL_CHARACTERS_MESSAGE;
+import static org.roclh.common.constants.Constants.WRONG_PAGE_NUMBER_MESSAGE;
+import static org.roclh.common.constants.Constants.WRONG_PAGE_SIZE_MESSAGE;
+
 
 @RestController
+@Slf4j
 @RequestMapping("/api")
 public class StudopediaController  {
-
-    private static final Logger log = LogManager.getLogger(StudopediaController.class);
-    private static final String SPECIAL_CHARACTERS_MESSAGE = "There is special characters in request";
-    private static final String EMPTY = "The request is empty";
-    private static final String WRONG_PAGE_NUMBER = "Wrong page number";
-    private static final String WRONG_PAGE_SIZE = "Wrong page size";
     private final StudopediaService service;
 
     @Autowired
@@ -37,7 +42,7 @@ public class StudopediaController  {
     @GetMapping("/articles/{name}")
     public ResponseEntity<StudopediaArticle> getArticle(@PathVariable(name = "name") String articleName) throws ArticleNotFoundException, DataValidationException {
         log.info("Received request to get article with name {}", articleName);
-        ValidationUtils.validate(articleName, String::isEmpty, EMPTY);
+        ValidationUtils.validate(articleName, String::isEmpty, EMPTY_MESSAGE);
         ValidationUtils.validate(articleName, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
         return ResponseEntity.ok(service.getArticleByName(articleName));
     }
@@ -52,34 +57,34 @@ public class StudopediaController  {
     public ResponseEntity<List<StudopediaArticle>> getAllArticleWithPageSize(@RequestParam(name = "page") int page, @RequestParam(name = "page_size") int pageSize) throws DataValidationException {
 
         log.info("Received request to get all the articles, page {}, page size {}", page, pageSize);
-        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER);
-        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE);
+        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER_MESSAGE);
+        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE_MESSAGE);
         return ResponseEntity.ok(service.getArticlesAsListWithPageSize(page, pageSize));
     }
 
     @GetMapping("/articles/search")
     public ResponseEntity<List<StudopediaArticle>> searchArticle(@RequestParam(name = "search") String search, @RequestParam(name = "page") int page) throws DataValidationException {
         log.info("Received a search for " + search + " article request");
-        ValidationUtils.validate(search, String::isEmpty, EMPTY);
+        ValidationUtils.validate(search, String::isEmpty, EMPTY_MESSAGE);
         ValidationUtils.validate(search, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER);
+        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER_MESSAGE);
         return ResponseEntity.ok(service.getArticlesAsPage(search, page));
     }
 
     @GetMapping("/article/search-page")
     public ResponseEntity<List<StudopediaArticle>> searchArticleWithPage(@RequestParam(name = "search") String search, @RequestParam(name = "page") int page, @RequestParam(name = "page_size") int pageSize) throws DataValidationException {
         log.info("Received a search for " + search + " article request, page: {}, page size: {}", page, pageSize);
-        ValidationUtils.validate(search, String::isEmpty, EMPTY);
+        ValidationUtils.validate(search, String::isEmpty, EMPTY_MESSAGE);
         ValidationUtils.validate(search, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER);
-        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE);
+        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER_MESSAGE);
+        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE_MESSAGE);
         return ResponseEntity.ok(service.getArticlesAsPageWithSize(search, page, pageSize));
     }
 
     @GetMapping("/article/suggest")
     public ResponseEntity<List<StudopediaArticle>> suggestArticle(@RequestParam(name = "search") String search) throws DataValidationException {
         log.info("Suggestions!!!");
-        ValidationUtils.validate(search, String::isEmpty, EMPTY);
+        ValidationUtils.validate(search, String::isEmpty, EMPTY_MESSAGE);
         ValidationUtils.validate(search, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
         return ResponseEntity.ok(service.getArticleSuggestionBySubStr(search));
     }
@@ -95,8 +100,8 @@ public class StudopediaController  {
             @PathVariable(name = "category") String categoryName, @RequestParam(name = "page") int page) throws ArticleNotFoundException, DataValidationException {
         log.info("Received a request for articles in category: " + categoryName);
         ValidationUtils.validate(categoryName, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY);
-        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER);
+        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY_MESSAGE);
+        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER_MESSAGE);
         return ResponseEntity.ok(service.getArticleByCategory(categoryName, page));
     }
 
@@ -105,9 +110,9 @@ public class StudopediaController  {
             @RequestParam(name = "category") String categoryName, @RequestParam(name = "page") int page, @RequestParam(name = "page_size") int pageSize) throws ArticleNotFoundException, DataValidationException {
         log.info("Received a request for articles in category: {}, page: {}, page size: {}", categoryName, page, pageSize);
         ValidationUtils.validate(categoryName, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY);
-        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER);
-        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE);
+        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY_MESSAGE);
+        ValidationUtils.validate(page, (val) -> val < 0, WRONG_PAGE_NUMBER_MESSAGE);
+        ValidationUtils.validate(pageSize, (val) -> val <= 0, WRONG_PAGE_SIZE_MESSAGE);
         return ResponseEntity.ok(service.getArticleByCategoryWithSize(categoryName, page, pageSize));
     }
 
@@ -119,10 +124,10 @@ public class StudopediaController  {
             @RequestParam(name = "title") String title) throws DataValidationException {
         log.info("Received a request to add an article with title {}, content {} and category name {}", title, content, categoryName);
         ValidationUtils.validate(title, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(title, String::isEmpty, EMPTY);
+        ValidationUtils.validate(title, String::isEmpty, EMPTY_MESSAGE);
         ValidationUtils.validate(categoryName, ValidationUtils::containsSpecialCharacters, SPECIAL_CHARACTERS_MESSAGE);
-        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY);
-        ValidationUtils.validate(content, String::isEmpty, EMPTY);
+        ValidationUtils.validate(categoryName, String::isEmpty, EMPTY_MESSAGE);
+        ValidationUtils.validate(content, String::isEmpty, EMPTY_MESSAGE);
         Account principal = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         service.addArticle(title, content, categoryName, principal.getId());
         log.info("Successfully added an article with title {}, content {} and category name {}", title, content, categoryName);

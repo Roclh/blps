@@ -1,4 +1,4 @@
-package com.roclh.mainmodule.exceptions;
+package org.roclh.common.exceptions;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,14 +1,13 @@
 package com.roclh.mainmodule.controllers;
 
 import com.roclh.mainmodule.entities.Account;
-import com.roclh.mainmodule.exceptions.AccountNotFountException;
+import org.roclh.common.exceptions.AccountNotFountException;
 import com.roclh.mainmodule.messaging.AuthenticationResponse;
 import com.roclh.mainmodule.messaging.LoginRequest;
 import com.roclh.mainmodule.messaging.RegisterRequest;
 import com.roclh.mainmodule.services.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Slf4j
 public class AccountController {
 
-    private final Logger log = LogManager.getLogger(AccountController.class);
     private final AccountService accountService;
 
     @GetMapping("/accounts")

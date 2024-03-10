@@ -1,8 +1,8 @@
 package com.roclh.mainmodule.services;
 
-import com.roclh.mainmodule.exceptions.ArticleExistsException;
-import com.roclh.mainmodule.exceptions.ArticleNotFoundException;
-import com.roclh.mainmodule.exceptions.DataValidationException;
+import org.roclh.common.exceptions.ArticleExistsException;
+import org.roclh.common.exceptions.ArticleNotFoundException;
+import org.roclh.common.exceptions.DataValidationException;
 import com.roclh.mainmodule.database.CategoryDatabase;
 import com.roclh.mainmodule.database.StudopediaDatabase;
 import com.roclh.mainmodule.entities.Account;

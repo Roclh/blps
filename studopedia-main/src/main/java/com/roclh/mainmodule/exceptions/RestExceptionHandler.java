@@ -1,7 +1,12 @@
 package com.roclh.mainmodule.exceptions;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
+import org.roclh.common.exceptions.AccountExistsException;
+import org.roclh.common.exceptions.AccountNotFountException;
+import org.roclh.common.exceptions.ArticleExistsException;
+import org.roclh.common.exceptions.ArticleNotFoundException;
+import org.roclh.common.exceptions.DataValidationException;
+import org.roclh.common.exceptions.ErrorBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,9 +16,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
+@Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-    private static final Logger log = LogManager.getLogger(RestExceptionHandler.class);
 
 
     @ExceptionHandler(value = {ArticleNotFoundException.class})

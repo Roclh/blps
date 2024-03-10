@@ -1,6 +1,6 @@
 package com.roclh.mainmodule.utils;
 
-import com.roclh.mainmodule.exceptions.DataValidationException;
+import org.roclh.common.exceptions.DataValidationException;
 
 import java.util.List;
 import java.util.function.Predicate;

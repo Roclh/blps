@@ -1,14 +1,13 @@
 package com.roclh.mainmodule.services;
 
-import com.roclh.mainmodule.exceptions.ArticleNotFoundException;
-import com.roclh.mainmodule.messaging.JMSMessage.AddCommentMessage;
-import com.roclh.mainmodule.messaging.JMSMessage.DeleteCommentMessage;
 import com.roclh.mainmodule.database.AccountDatabase;
 import com.roclh.mainmodule.database.StudopediaDatabase;
 import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.entities.StudopediaArticle;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.roclh.mainmodule.messaging.JMSMessage.AddCommentMessage;
+import com.roclh.mainmodule.messaging.JMSMessage.DeleteCommentMessage;
+import lombok.extern.slf4j.Slf4j;
+import org.roclh.common.exceptions.ArticleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +18,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ArticleService {
-    private final Logger log = LogManager.getLogger(ArticleService.class);
     private final StudopediaDatabase studopediaDatabase;
     private final AccountDatabase accountDatabase;
     private final JmsTemplate jmsTemplate;

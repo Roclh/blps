@@ -1,11 +1,10 @@
 package com.roclh.mainmodule.controllers;
 
-import com.roclh.mainmodule.exceptions.ArticleNotFoundException;
 import com.roclh.mainmodule.entities.Account;
+import org.roclh.common.exceptions.ArticleNotFoundException;
 import com.roclh.mainmodule.services.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/article/{article_id}")
 @RequiredArgsConstructor
+@Slf4j
 public class ArticleController {
 
-    private final Logger log = LogManager.getLogger(ArticleController.class);
     private final ArticleService service;
     private Account principal;
 
