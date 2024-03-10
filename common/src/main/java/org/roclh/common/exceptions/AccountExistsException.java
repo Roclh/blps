@@ -1,4 +1,4 @@
-package com.roclh.mainmodule.exceptions;
+package org.roclh.common.exceptions;
 
 public class AccountExistsException extends Exception{
 

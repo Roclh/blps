@@ -1,6 +1,6 @@
 package com.roclh.mainmodule.services;
 
-import com.roclh.mainmodule.exceptions.AccountNotFountException;
+import org.roclh.common.exceptions.AccountNotFountException;
 import com.roclh.mainmodule.messaging.AuthenticationResponse;
 import com.roclh.mainmodule.messaging.LoginRequest;
 import com.roclh.mainmodule.messaging.RegisterRequest;

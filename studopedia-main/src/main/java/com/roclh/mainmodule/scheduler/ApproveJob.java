@@ -23,7 +23,7 @@ public class ApproveJob implements Job {
 
 
     @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) {
         log.info("Job of approving emails is starting");
         List<Account> admins = accountService.getAdmins();
         jobService.executeApproveJob(admins);

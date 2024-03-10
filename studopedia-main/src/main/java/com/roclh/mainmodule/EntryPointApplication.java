@@ -1,7 +1,6 @@
 package com.roclh.mainmodule;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -9,9 +8,8 @@ import org.springframework.context.ApplicationContext;
 import java.util.stream.Stream;
 
 @SpringBootApplication
+@Slf4j
 public class EntryPointApplication {
-
-    private static final Logger log = LogManager.getLogger(EntryPointApplication.class);
     private static ApplicationContext applicationContext;
 
     public static void main(String[] args) {

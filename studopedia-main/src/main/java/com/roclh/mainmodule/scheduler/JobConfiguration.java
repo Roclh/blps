@@ -10,7 +10,7 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 
 @Configuration
 public class JobConfiguration {
-    private static final String CRON_EVERY_FIVE_MINUTES = "0 0/5 * * * ?";
+
 
     @Bean(name = "approveArticle")
     public JobDetailFactoryBean jobApproveArticle(){
@@ -19,7 +19,7 @@ public class JobConfiguration {
 
     @Bean(name = "approveArticleTrigger")
     public CronTriggerFactoryBean triggerFactoryBean(@Qualifier("approveArticle") JobDetail jobDetail){
-        return QuartzConfig.createCronTrigger(jobDetail, CRON_EVERY_FIVE_MINUTES, "Approve new request Trigger");
+        return QuartzConfig.createCronTrigger(jobDetail, "Approve new request Trigger");
     }
 
 

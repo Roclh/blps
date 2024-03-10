@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.roclh.common.constants.Constants.MESSAGE_SEND_FROM;
+
 @Service
 @Slf4j
 public class ApproveJobService {
@@ -17,7 +19,7 @@ public class ApproveJobService {
     private JavaMailSender emailSender;
     public void executeApproveJob(List<Account> admins) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("noreply@blps.com");
+        message.setFrom(MESSAGE_SEND_FROM);
         message.setSubject("Approve new articles");
         message.setText("There are numerous new articles! Approve them!");
         for (Account admin : admins){

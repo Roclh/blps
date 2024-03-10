@@ -27,7 +27,7 @@ public class QuartzConfig {
 
     public QuartzConfig(ApplicationContext applicationContext){
         this.applicationContext = applicationContext;
-}
+    }
 
 
 
@@ -69,15 +69,15 @@ public class QuartzConfig {
         return factoryBean;
     }
 
-    static CronTriggerFactoryBean createCronTrigger(JobDetail jobDetail, String cronExpression, String triggerName) {
-        log.debug("createCronTrigger(jobDetail={}, cronExpression={}, triggerName={})", jobDetail.toString(), cronExpression, triggerName);
+    static CronTriggerFactoryBean createCronTrigger(JobDetail jobDetail, String triggerName) {
+        log.debug("createCronTrigger(jobDetail={}, cronExpression={}, triggerName={})", jobDetail.toString(), org.roclh.common.constants.Constants.CRON_EVERY_FIVE_MINUTES, triggerName);
         // To fix an issue with time-based cron jobs
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         CronTriggerFactoryBean factoryBean = new CronTriggerFactoryBean();
         factoryBean.setJobDetail(jobDetail);
-        factoryBean.setCronExpression(cronExpression);
+        factoryBean.setCronExpression(org.roclh.common.constants.Constants.CRON_EVERY_FIVE_MINUTES);
         factoryBean.setStartTime(calendar.getTime());
         factoryBean.setStartDelay(0L);
         factoryBean.setName(triggerName);
