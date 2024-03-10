@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 @Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-
-
     @ExceptionHandler(value = {ArticleNotFoundException.class})
     protected ResponseEntity<?> handleArticleNotFound(Exception e) {
         ErrorBody errorBody = ErrorBody.builder()

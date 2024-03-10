@@ -1,6 +1,7 @@
 package com.roclh.mainmodule.scheduler;
 
 import com.roclh.mainmodule.services.AccountService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -12,13 +13,10 @@ import com.roclh.mainmodule.entities.Account;
 import java.util.List;
 
 @Component
+@AllArgsConstructor
 @Slf4j
 public class ApproveJob implements Job {
-
-    @Autowired
     private ApproveJobService jobService;
-
-    @Autowired
     private AccountService accountService;
 
 

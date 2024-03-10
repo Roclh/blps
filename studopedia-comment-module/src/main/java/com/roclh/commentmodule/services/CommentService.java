@@ -2,6 +2,7 @@ package com.roclh.commentmodule.services;
 
 import com.roclh.commentmodule.repositories.ArticleRepository;
 import com.roclh.commentmodule.repositories.CommentRepository;
+import lombok.AllArgsConstructor;
 import org.roclh.common.exceptions.CommentNotFoundException;
 import com.roclh.mainmodule.entities.Comment;
 import com.roclh.mainmodule.entities.CommentKey;
@@ -14,17 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 @Slf4j
 public class CommentService {
 
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
 
-    @Autowired
-    public CommentService(ArticleRepository articleRepository, CommentRepository commentRepository){
-        this.articleRepository = articleRepository;
-        this.commentRepository = commentRepository;
-    }
 
     public void addComment(Long articleId, Long accountId, String comment) throws ArticleNotFoundException {
         log.info("CommentService: adding a new comment to article with id {}", articleId);

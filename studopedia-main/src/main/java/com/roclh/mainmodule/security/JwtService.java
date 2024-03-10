@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@AllArgsConstructor
 public class JwtService {
 
     private SensitivePropertiesWatcher propertiesWatcher;
-
-    public JwtService(SensitivePropertiesWatcher propertiesWatcher) {
-        this.propertiesWatcher = propertiesWatcher;
-    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

@@ -6,6 +6,7 @@ import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.entities.StudopediaArticle;
 import com.roclh.mainmodule.messaging.JMSMessage.AddCommentMessage;
 import com.roclh.mainmodule.messaging.JMSMessage.DeleteCommentMessage;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.roclh.common.exceptions.ArticleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,11 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@AllArgsConstructor
 public class ArticleService {
     private final StudopediaDatabase studopediaDatabase;
     private final AccountDatabase accountDatabase;
     private final JmsTemplate jmsTemplate;
-
-
-    @Autowired
-    public ArticleService(StudopediaDatabase studopediaDatabase, AccountDatabase accountDatabase, JmsTemplate jmsTemplate) {
-        this.studopediaDatabase = studopediaDatabase;
-        this.accountDatabase = accountDatabase;
-        this.jmsTemplate = jmsTemplate;
-    }
 
 
     @Transactional

@@ -1,6 +1,7 @@
 package com.roclh.mainmodule.scheduler;
 
 import com.roclh.mainmodule.entities.Account;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,10 +13,10 @@ import java.util.List;
 import static org.roclh.common.constants.Constants.MESSAGE_SEND_FROM;
 
 @Service
+@AllArgsConstructor
 @Slf4j
 public class ApproveJobService {
 
-    @Autowired
     private JavaMailSender emailSender;
     public void executeApproveJob(List<Account> admins) {
         SimpleMailMessage message = new SimpleMailMessage();

@@ -1,5 +1,6 @@
 package com.roclh.mainmodule.services;
 
+import lombok.RequiredArgsConstructor;
 import org.roclh.common.exceptions.ArticleExistsException;
 import org.roclh.common.exceptions.ArticleNotFoundException;
 import org.roclh.common.exceptions.DataValidationException;
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
+@RequiredArgsConstructor
 public class StudopediaService {
     private final static String ARTICLE_EXISTS = "Article already exists";
 
@@ -28,12 +30,6 @@ public class StudopediaService {
     private final StudopediaDatabase articleRepository;
     private final CategoryDatabase categoryRepository;
     private Account principal;
-
-    @Autowired
-    public StudopediaService(StudopediaDatabase database, CategoryDatabase categoryRepository){
-        this.articleRepository = database;
-        this.categoryRepository = categoryRepository;
-    }
 
 
     public List<StudopediaArticle> getArticlesAsList() {
