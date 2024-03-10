@@ -2,13 +2,13 @@ package com.roclh.mainmodule.controllers;
 
 import com.roclh.mainmodule.entities.Account;
 import com.roclh.mainmodule.entities.StudopediaArticle;
+import com.roclh.mainmodule.services.StudopediaService;
+import com.roclh.mainmodule.utils.ValidationUtils;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.roclh.common.exceptions.ArticleExistsException;
 import org.roclh.common.exceptions.ArticleNotFoundException;
 import org.roclh.common.exceptions.DataValidationException;
-import com.roclh.mainmodule.services.StudopediaService;
-import com.roclh.mainmodule.utils.ValidationUtils;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,14 +30,9 @@ import static org.roclh.common.constants.Constants.WRONG_PAGE_SIZE_MESSAGE;
 @RestController
 @Slf4j
 @RequestMapping("/api")
+@AllArgsConstructor
 public class StudopediaController  {
     private final StudopediaService service;
-
-    @Autowired
-    public StudopediaController(StudopediaService service) {
-        log.info("Initializing Studopedia Controller");
-        this.service = service;
-    }
 
     @GetMapping("/articles/{name}")
     public ResponseEntity<StudopediaArticle> getArticle(@PathVariable(name = "name") String articleName) throws ArticleNotFoundException, DataValidationException {

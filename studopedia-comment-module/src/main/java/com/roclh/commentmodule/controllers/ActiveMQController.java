@@ -1,25 +1,21 @@
 package com.roclh.commentmodule.controllers;
 
-import org.roclh.common.exceptions.CommentNotFoundException;
 import com.roclh.commentmodule.services.CommentService;
-import org.roclh.common.exceptions.ArticleNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.roclh.common.exceptions.ArticleNotFoundException;
+import org.roclh.common.exceptions.CommentNotFoundException;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Component
+@AllArgsConstructor
 @Slf4j
 public class ActiveMQController {
 
     private final CommentService commentService;
-
-    @Autowired
-    public ActiveMQController(CommentService commentService) {
-        this.commentService = commentService;
-    }
 
     @JmsListener(destination = "addQueue")
     public void addComment(String message) throws ArticleNotFoundException {

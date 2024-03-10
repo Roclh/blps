@@ -1,16 +1,20 @@
 package com.roclh.mainmodule.scheduler;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.SimpleTrigger;
 import org.quartz.Trigger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.*;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
+import org.springframework.scheduling.quartz.JobDetailFactoryBean;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
+import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import javax.sql.DataSource;
 import java.util.Calendar;
@@ -19,17 +23,13 @@ import java.util.Properties;
 import static org.roclh.common.constants.Constants.CRON_EVERY_FIVE_MINUTES;
 
 @Configuration
+@AllArgsConstructor
 @Slf4j
 public class QuartzConfig {
     private ApplicationContext applicationContext;
 
-    @Autowired
     private DataSource dataSource;
 
-
-    public QuartzConfig(ApplicationContext applicationContext){
-        this.applicationContext = applicationContext;
-    }
 
 
 
